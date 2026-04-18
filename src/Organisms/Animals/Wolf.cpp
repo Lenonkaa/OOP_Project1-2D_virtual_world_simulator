@@ -4,9 +4,13 @@
 
 #include "Wolf.h"
 
+#define WOLF_STRENGTH 9
+#define WOLF_INITIATIVE 5
+
+
 
 Wolf::Wolf(World* world, Point position)
-    : Animal(world, position, 9, 5) {}
+    : Animal(world, position, WOLF_STRENGTH, WOLF_INITIATIVE) {}
 
 char Wolf::draw() {
     return 'W';

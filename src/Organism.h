@@ -6,6 +6,7 @@
 #define OOP1_ORGANISM_H
 
 #include "Point.h"
+#include "World.h"
 
 class World;
 
@@ -15,6 +16,7 @@ private:
     int initiative;
     Point position;
     int age;
+    bool isAlive;
 
 protected:
     World* world;
@@ -34,6 +36,7 @@ public:
     Point getPosition() const { return position;}
     int getInitiative() const { return initiative; }
     int getAge() const { return age; }
+    bool getIsAlive() const { return isAlive; }
 
     void setPosition(Point p) { position.x = p.x; position.y= p.y; }
     void incrementAge() { age++; }

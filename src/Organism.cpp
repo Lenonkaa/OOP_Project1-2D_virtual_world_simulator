@@ -7,7 +7,9 @@
 Organism::Organism(World* world, Point position, int strength, int initiative):
     position(position),
     strength(strength),
-    initiative(initiative)
+    initiative(initiative),
+    age(0)
 {
     this->world = world;
+    this->isAlive = true;
 }

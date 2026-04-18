@@ -19,15 +19,15 @@ Animal::Animal(World* world, Point position, int strength, int initiative)
 
 
 void Animal::action() {
-    std::cout << "Animal::action()" << std::endl;
+    world->addMessage("animal action");
 }
 
 void Animal::collision() {
-    std::cout << "Animal::collision()" << std::endl;
+    world->addMessage("animal collision");
 }
 
 void Animal::move(Point newPosition) {
-    std::cout << "Animal::move()" << std::endl;
+    world->addMessage("animal move");
 }
 
 

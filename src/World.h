@@ -11,21 +11,35 @@
 using namespace std;
 
 #include "Organism.h"
+#include "Point.h"
+
+class Organism;
 
 class World {
 private:
     int width, height;
+    int turnNumber;
+    bool isGameActive;
+    bool isHumanALive;
     vector<Organism*> organisms;
+    Organism*** organismsOnGrid;
+    //Human* human;
+
+    vector<string> turnMessages;
 
     //void organismsTurn;
 
-    int turnNumber;
-    Organism*** organismsOnGrid;
+    void sortOrganisms();
 
-    bool isGameActive;
+
 
 
 public:
+    void addMessage(string msg) { turnMessages.push_back(msg); }
+
+    void playGame();
+
+    bool getIsGameActive(){return isGameActive;}
 
     enum MOVE {
         UP,
@@ -41,45 +55,16 @@ public:
 
     ~World();
 
+    void makeTurn();
 
     void addOrganism(Organism* organism);
-
-
-    void drawWorld() const {
-        system("cls");
-        cout << "Lena Idczak 208341" << endl;
-        cout << "Numer tury " << turnNumber << endl;
-
-        for (int y = 0; y < height; ++y) {
-            for (int x = 0; x < width; ++x) {
-                if (organismsOnGrid[y][x] == nullptr) {
-                    // Puste pole wypełniamy kropką
-                    cout << ". ";
-                } else {
-                    // Jeśli jest organizm, prosimy go, by się narysował
-                    // Metoda draw() dla Wilka zwraca 'W'
-                    cout << organismsOnGrid[y][x]->draw() << " ";
-                }
-            }
-            cout << endl; // Nowa linia po każdym rzędzie
-        }
-    }
+    void removeOrganism(Organism* organism);
+    void drawWorld() const;
 
         /*
-            void makeTurn();
 
 
-    void removeOrganism(Organism* organism);
-
-    Organism* getOrganismAtPositiom(Point p) const {
-        Organism* szukany = nullptr;
-
-
-        for(auto* organism : organisms) {
-        }
-
-        return szukany;
-    }
+    Organism* getOrganismAtPosition(Point p) const
     */
 
 };

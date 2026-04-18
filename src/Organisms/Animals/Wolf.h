@@ -16,6 +16,7 @@ public:
     ~Wolf() override = default;
 
     char draw() override;
+    void drawColor();
 };
 
 
