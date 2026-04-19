@@ -24,11 +24,13 @@ public:
     // Wspólne zachowania dla wszystkich zwierząt
     virtual void action() override;    // Ruch na sąsiednie pole
     virtual void collision(Organism* other) override; // Walka lub rozmnażanie
+    bool isAnimal() override { return true; }
 
 protected:
     void moveYourself(Point currentPos, Point nextPos);
     void moveRandom();
     virtual Animal* createChild(Point pos) = 0;
+
 };
 
 

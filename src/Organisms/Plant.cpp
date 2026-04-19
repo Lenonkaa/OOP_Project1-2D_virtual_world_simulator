@@ -8,7 +8,6 @@
 
 void Plant::action()
 {
-    //world->addMessage("plant action");
     spread();
 }
 

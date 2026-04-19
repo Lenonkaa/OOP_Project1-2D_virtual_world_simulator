@@ -11,7 +11,7 @@ SosnowskyHogweed::SosnowskyHogweed(World* world, Point position)
     : Plant(world, position, SOSNOWSKY_STRENGTH) {}
 
 char SosnowskyHogweed::draw() {
-    return 's';
+    return HOGWEED_SYMBOL;
 }
 
 
@@ -35,4 +35,32 @@ bool SosnowskyHogweed::hasDeflectedAttack(Organism* attacker) {
 bool SosnowskyHogweed::isThatCyberSheep(Organism* attacker) {
     char type = attacker->draw();
     return type == CYBER_SHEEP_SYMBOL;
+}
+
+void SosnowskyHogweed::action() {
+    spread();
+}
+
+void SosnowskyHogweed::killAnimalNeighbors() {
+    int range=1;
+    Point position = getPosition();
+
+    for (int dy = -range; dy <= range; dy++) {
+        for (int dx = -range; dx <= range; dx++) {
+
+            Point checkedPoint = {position.x + dx, position.y + dy};
+            Organism* occupant = world->getOrganismAtPosition(checkedPoint);
+
+            if (!(checkedPoint == position)
+                && !checkedPoint.isOutGrid(world->getHeight(), world->getWidth() )
+                && occupant->isAnimal()
+                && occupant->draw() != CYBER_SHEEP_SYMBOL) {
+
+                    world->addMessage("Sosnowsky's hogweed kills " + string(1, occupant->draw()) + "!");
+                    occupant->kill();
+                }
+
+            }
+        }
+
 }

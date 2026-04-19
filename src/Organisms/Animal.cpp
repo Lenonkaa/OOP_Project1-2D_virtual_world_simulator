@@ -25,8 +25,7 @@ void Animal::action() {
 void Animal::collision(Organism* other) {
     if (this->isSameSpecies(other)) {
         world->addMessage("Breading " + string(1, this->draw()) +" specie");
-        //bread()
-        // (Tutaj w przyszłości dodasz logikę losowania wolnego pola i dodawania nowego organizmu)
+        bread(other);
         return;
     }
 

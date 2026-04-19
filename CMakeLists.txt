@@ -33,4 +33,8 @@ add_executable(OOP1 src/main.cpp
         src/Organisms/Animals/Antelope.cpp
         src/Organisms/Animals/Antelope.h
         src/Organisms/Animals/Fox.cpp
-        src/Organisms/Animals/Fox.h)
+        src/Organisms/Animals/Fox.h
+        src/Organisms/Animals/Turtle.cpp
+        src/Organisms/Animals/Turtle.h
+        src/Organisms/Animals/CyberSheep.cpp
+        src/Organisms/Animals/CyberSheep.h)

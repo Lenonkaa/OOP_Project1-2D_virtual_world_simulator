@@ -12,10 +12,12 @@ public:
     SosnowskyHogweed(World* world, Point position);
     char draw() override;
     bool hasDeflectedAttack(Organism* attacker) override;
+    void action() override;
 protected:
     void spawnNew(Point pos) override;
 private:
     bool isThatCyberSheep(Organism* attacker);
+    void killAnimalNeighbors();
 };
 
 

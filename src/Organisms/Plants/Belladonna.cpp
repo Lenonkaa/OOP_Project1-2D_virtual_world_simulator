@@ -11,7 +11,7 @@ Belladonna::Belladonna(World* world, Point position)
     : Plant(world, position, BELLADONNA_STRENGTH) {}
 
 char Belladonna::draw() {
-    return 's';
+    return 'b';
 }
 
 

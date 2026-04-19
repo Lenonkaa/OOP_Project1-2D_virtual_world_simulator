@@ -8,6 +8,7 @@
 #include "Point.h"
 #include "World.h"
 #define CYBER_SHEEP_SYMBOL 'C'
+#define HOGWEED_SYMBOL 'h'
 
 class World;
 
@@ -21,6 +22,7 @@ private:
 
 protected:
     World* world;
+
 
 public:
 
@@ -46,6 +48,7 @@ public:
 
     virtual bool hasDeflectedAttack(Organism* attacker) { return false; } //domyslne nieodbijanie
     bool isSameSpecies(Organism* other) { return this->draw() == other->draw(); }
+    virtual bool isAnimal() { return false; }
     void kill() { isAlive = false; }
 };
 #endif //OOP1_ORGANISM_H

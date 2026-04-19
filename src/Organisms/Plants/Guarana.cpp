@@ -12,7 +12,7 @@ Guarana::Guarana(World* world, Point position)
     : Plant(world, position, GUARANA_STRENGTH) {}
 
 char Guarana::draw() {
-    return 's';
+    return 'g';
 }
 
 
