@@ -21,9 +21,7 @@ public:
     void collision() override; // Walka lub rozmnażanie
 
 protected:
-    // Metody pomocnicze do logiki zwierząt
-    virtual void move(Point newPosition);
-   // virtual void breed(Organism* partner);
+    void move();
 };
 
 

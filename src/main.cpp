@@ -1,6 +1,7 @@
 #include <iostream>
 #include <ctime>
 #include "World.h"
+#include "Organisms/Animals/Sheep.h"
 #include "Organisms/Animals/Wolf.h"
 #include "Organisms/Plants/Grass.h"
 
@@ -17,9 +18,12 @@ int main() {
 
     Grass* trawa = new Grass(&mojSwiat, pozycjaGrass);
 
+    Point pod = mojSwiat.getRandomFreeCell();
+    Sheep* owca = new Sheep(&mojSwiat, pod);
 
     mojSwiat.addOrganism(staryWilk);
     mojSwiat.addOrganism(trawa);
+    mojSwiat.addOrganism(owca);
 
     mojSwiat.playGame();
 

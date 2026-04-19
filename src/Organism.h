@@ -38,7 +38,7 @@ public:
     int getAge() const { return age; }
     bool getIsAlive() const { return isAlive; }
 
-    void setPosition(Point p) { position.x = p.x; position.y= p.y; }
+    void changePosition(Point newPos);
     void incrementAge() { age++; }
 };
 #endif //OOP1_ORGANISM_H

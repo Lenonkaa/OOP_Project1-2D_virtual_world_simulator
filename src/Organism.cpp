@@ -13,3 +13,11 @@ Organism::Organism(World* world, Point position, int strength, int initiative):
     this->world = world;
     this->isAlive = true;
 }
+
+void Organism::changePosition(Point newPos) {
+    world->setOrganismAt(this->position, nullptr);
+
+    this->position = newPos;
+
+    world->setOrganismAt(this->position, this);
+}

@@ -11,6 +11,8 @@ class Grass: public Plant {
 public:
     Grass(World* world, Point position);
     char draw() override;
+protected:
+    void spawnNew(Point pos) override;
 };
 
 

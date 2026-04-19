@@ -14,3 +14,8 @@ Grass::Grass(World* world, Point position)
 char Grass::draw() {
     return 'G';
 }
+
+
+void Grass::spawnNew(Point pos) {
+        world->addOrganism(new Grass(world, pos));
+    }

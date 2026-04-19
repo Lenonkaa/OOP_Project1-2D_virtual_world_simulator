@@ -17,4 +17,8 @@ add_executable(OOP1 src/main.cpp
         src/Organisms/Plants/Grass.cpp
         src/Organisms/Plants/Grass.h
         src/Organisms/Plant.cpp
-        src/Organisms/Plant.h)
+        src/Organisms/Plant.h
+        src/Organisms/Animals/Sheep.cpp
+        src/Organisms/Animals/Sheep.h
+        src/Organisms/Human.cpp
+        src/Organisms/Human.h)

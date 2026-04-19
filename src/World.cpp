@@ -4,12 +4,98 @@
 
 #include "World.h"
 
+void World::setOrganismAt(Point p, Organism* o) {
+    if (!p.isOutGrid(height,width)){
+        organismsOnGrid[p.y][p.x] = o;
+    }
+}
+
+
+Organism* World::getOrganismAtPosition(Point p) const {
+    if (p.isOutGrid(height,width)) return nullptr;
+
+    return organismsOnGrid[p.y][p.x];
+}
+
+Point World::getRandomFreeNeighbor(Point p) {
+    vector<Point> potentialNeighbors;
+    for(int dy = -1; dy <= 1; dy++){
+
+        for(int dx = -1; dx <= 1; dx++){
+            Point checkedPoint = {p.x + dx, p.y + dy};
+
+            if(!(checkedPoint == p)
+            && !checkedPoint.isOutGrid(height,width)
+            && getOrganismAtPosition(checkedPoint) == nullptr){
+
+                potentialNeighbors.push_back(checkedPoint);
+            }
+        }
+    }
+    if (potentialNeighbors.empty()) return p;
+
+    int index = rand() % potentialNeighbors.size();
+    return potentialNeighbors[index];
+
+
+
+}
+
+Point World::getRandomNeighbor(Point p) {
+    vector<Point> potentialNeighbors;
+    for(int dy = -1; dy <= 1; dy++){
+
+        for(int dx = -1; dx <= 1; dx++){
+
+            Point checkedPoint = {p.x + dx, p.y + dy};
+
+            if(checkedPoint != p
+            && !checkedPoint.isOutGrid(height,width)){
+
+                potentialNeighbors.push_back(checkedPoint);
+            }
+        }
+    }
+    if (potentialNeighbors.empty()) return p;
+
+    int index = rand() % potentialNeighbors.size();
+    return potentialNeighbors[index];
+
+
+
+}
+
+
+
+
+
+Point World::getRandomFreeCell()
+{
+    vector<Point> freeCells;
+
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            if (organismsOnGrid[y][x] == nullptr) {
+                freeCells.push_back({x, y});
+            }
+        }
+    }
+
+    //if no empty cells
+    if (freeCells.empty()) {
+        return {-1, -1};
+    }
+
+    int randomIndex = rand() % freeCells.size();
+    return freeCells[randomIndex];
+}
+
 void World::playGame() {
     while (isGameActive) {
         drawWorld();
         getchar();
         makeTurn();
-    if (turnNumber==5) {
+    if (turnNumber==10) {
         isGameActive = false;
     }
     }
@@ -50,8 +136,17 @@ void World::makeTurn() {
     //action for every organism
     for (size_t i = 0; i < organisms.size(); ++i) {
         if (organisms[i]->getIsAlive()) {
+            if (organisms[i]->getAge()>0) organisms[i]->action();
             organisms[i]->incrementAge();
-            organisms[i]->action();
+
+        }
+    }
+
+    for (auto it = organisms.begin(); it != organisms.end(); ) {
+        if (!(*it)->getIsAlive()) {
+            removeOrganism(*it);
+        } else {
+            ++it;
         }
     }
     drawWorld();
@@ -103,7 +198,10 @@ void Swiat::WykonajTure()
 */
 void World::addOrganism(Organism* organism) {
     organisms.push_back(organism);
-    cout <<"adding organism "<<organism->draw()<<endl ;
+
+    string msg = string("adding organism ") + organism->draw() + " to the world";
+    this->addMessage(msg);
+
     // przypisanie do tablicy 2D - gridu:
     organismsOnGrid[organism->getPosition().y][organism->getPosition().x] = organism;
 }

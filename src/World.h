@@ -35,6 +35,11 @@ private:
 
 
 public:
+
+    Point getRandomFreeCell();
+    Point getRandomFreeNeighbor(Point p);
+    Point getRandomNeighbor(Point p);
+
     void addMessage(string msg) { turnMessages.push_back(msg); }
 
     void playGame();
@@ -61,11 +66,10 @@ public:
     void removeOrganism(Organism* organism);
     void drawWorld() const;
 
-        /*
 
+    Organism* getOrganismAtPosition(Point p) const;
+    void setOrganismAt(Point p, Organism* o);
 
-    Organism* getOrganismAtPosition(Point p) const
-    */
 
 };
 
