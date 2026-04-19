@@ -12,7 +12,7 @@ Grass::Grass(World* world, Point position)
     : Plant(world, position, GRASS_STRENGTH) {}
 
 char Grass::draw() {
-    return 'G';
+    return 't';
 }
 
 

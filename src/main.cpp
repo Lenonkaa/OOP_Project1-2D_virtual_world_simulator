@@ -4,6 +4,7 @@
 #include "Organisms/Animals/Sheep.h"
 #include "Organisms/Animals/Wolf.h"
 #include "Organisms/Plants/Grass.h"
+#include "Organisms/Human.h"
 
 int main() {
 
@@ -13,6 +14,7 @@ int main() {
 
     Point pozycjaWilka = {5, 9};
     Point pozycjaGrass = {5, 4};
+
 
     Wolf* staryWilk = new Wolf(&mojSwiat, pozycjaWilka);
 

@@ -16,6 +16,8 @@ public:
     ~Sheep() override = default;
 
     char draw() override;
+
+    Animal* createChild(Point pos) override;
 };
 
 

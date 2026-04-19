@@ -8,7 +8,12 @@
 
 #include "../Organism.h"
 
+
+
 class Animal : public Organism {
+private:
+    void bread(Organism* other);
+    void strongerWins(Organism* other);
 
 public:
 
@@ -17,11 +22,13 @@ public:
     virtual ~Animal() = default;
 
     // Wspólne zachowania dla wszystkich zwierząt
-    void action() override;    // Ruch na sąsiednie pole
-    void collision() override; // Walka lub rozmnażanie
+    virtual void action() override;    // Ruch na sąsiednie pole
+    virtual void collision(Organism* other) override; // Walka lub rozmnażanie
 
 protected:
-    void move();
+    void moveYourself(Point currentPos, Point nextPos);
+    void moveRandom();
+    virtual Animal* createChild(Point pos) = 0;
 };
 
 

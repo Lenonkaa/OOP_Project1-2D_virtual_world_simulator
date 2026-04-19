@@ -8,11 +8,13 @@
 #include <algorithm>
 #include <iostream>
 #include <ostream>
+#include <conio.h>
 using namespace std;
 
 #include "Organism.h"
 #include "Point.h"
 
+class Human;
 class Organism;
 
 class World {
@@ -23,22 +25,22 @@ private:
     bool isHumanALive;
     vector<Organism*> organisms;
     Organism*** organismsOnGrid;
-    //Human* human;
+    Human* human;
 
     vector<string> turnMessages;
 
     //void organismsTurn;
 
     void sortOrganisms();
-
-
-
+    void handleInput();
 
 public:
 
     Point getRandomFreeCell();
-    Point getRandomFreeNeighbor(Point p);
-    Point getRandomNeighbor(Point p);
+    Point getRandomFreeNeighbor(Point p, int range = 1);
+    Point getRandomNeighbor(Point p, int range = 1);
+    int getWidth() const { return width; }
+    int getHeight() const { return height; }
 
     void addMessage(string msg) { turnMessages.push_back(msg); }
 
@@ -53,7 +55,6 @@ public:
         RIGHT,
         SPECIAL,
         STAY
-
     };
 
     World(int w, int h);
@@ -62,6 +63,7 @@ public:
 
     void makeTurn();
 
+    void addHuman();
     void addOrganism(Organism* organism);
     void removeOrganism(Organism* organism);
     void drawWorld() const;

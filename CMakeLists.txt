@@ -21,4 +21,16 @@ add_executable(OOP1 src/main.cpp
         src/Organisms/Animals/Sheep.cpp
         src/Organisms/Animals/Sheep.h
         src/Organisms/Human.cpp
-        src/Organisms/Human.h)
+        src/Organisms/Human.h
+        src/Organisms/Plants/Sonchus.cpp
+        src/Organisms/Plants/Sonchus.h
+        src/Organisms/Plants/Guarana.cpp
+        src/Organisms/Plants/Guarana.h
+        src/Organisms/Plants/Belladonna.cpp
+        src/Organisms/Plants/Belladonna.h
+        src/Organisms/Plants/SosnowskyHogweed.cpp
+        src/Organisms/Plants/SosnowskyHogweed.h
+        src/Organisms/Animals/Antelope.cpp
+        src/Organisms/Animals/Antelope.h
+        src/Organisms/Animals/Fox.cpp
+        src/Organisms/Animals/Fox.h)

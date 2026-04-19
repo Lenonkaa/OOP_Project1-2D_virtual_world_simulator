@@ -15,3 +15,7 @@ Wolf::Wolf(World* world, Point position)
 char Wolf::draw() {
     return 'W';
 }
+
+Animal* Wolf::createChild(Point pos) {
+    return new Wolf(this->world, pos);
+}

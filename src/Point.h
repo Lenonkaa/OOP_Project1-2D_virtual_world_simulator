@@ -7,12 +7,13 @@
 
 struct Point
 {
-    bool operator==(const Point& other) {
+    bool operator==(const Point& other) const {
         return (x == other.x && y == other.y);
     }
 
     int x;
     int y;
+
 
 
     bool isOutGrid(int height, int width) const {

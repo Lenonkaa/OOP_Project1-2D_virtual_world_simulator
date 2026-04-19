@@ -16,3 +16,7 @@ Sheep::Sheep(World* world, Point position)
 char Sheep::draw() {
     return 'S';
 }
+
+Animal* Sheep::createChild(Point pos) {
+    return new Sheep(this->world, pos);
+}

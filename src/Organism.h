@@ -7,6 +7,7 @@
 
 #include "Point.h"
 #include "World.h"
+#define CYBER_SHEEP_SYMBOL 'C'
 
 class World;
 
@@ -29,7 +30,7 @@ public:
 
 
     virtual void action() = 0;
-    virtual void collision() = 0;
+    virtual void collision(Organism* other) = 0;
     virtual char draw() = 0;
 
     //getters and setters
@@ -37,8 +38,14 @@ public:
     int getInitiative() const { return initiative; }
     int getAge() const { return age; }
     bool getIsAlive() const { return isAlive; }
+    int getStrength() const { return strength; }
 
     void changePosition(Point newPos);
     void incrementAge() { age++; }
+    void strengthBoost(int boost);
+
+    virtual bool hasDeflectedAttack(Organism* attacker) { return false; } //domyslne nieodbijanie
+    bool isSameSpecies(Organism* other) { return this->draw() == other->draw(); }
+    void kill() { isAlive = false; }
 };
 #endif //OOP1_ORGANISM_H

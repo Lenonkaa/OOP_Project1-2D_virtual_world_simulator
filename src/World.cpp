@@ -4,6 +4,63 @@
 
 #include "World.h"
 
+
+#define IS_ARROW 224
+
+#define A_UP 72
+#define A_DOWN 80
+#define A_LEFT 75
+#define A_RIGHT 77
+#define ABILITY 112
+#define ABILITY2 80
+
+#include "Organisms/Human.h"
+
+void World::addHuman() {
+    Point humanPos = this->getRandomFreeCell();
+    Human* czlowiek = new Human(this, humanPos);
+    addOrganism(czlowiek);
+    this->human = czlowiek;
+    this->isHumanALive = true;
+}
+
+void World::handleInput() {
+    int key = _getch();
+
+    if (key == IS_ARROW || key == 0) {
+        key = _getch();
+        if (isHumanALive) {
+            switch (key) {
+                case A_UP: human->setMove(UP); break;
+                case A_DOWN: human->setMove(DOWN); break;
+                case A_LEFT: human->setMove(LEFT); break;
+                case A_RIGHT: human->setMove(RIGHT); break;
+                default: human->setMove(STAY); break;
+            }
+        }
+        else {
+            addMessage("human is not alive, you can't move him");
+        }
+
+    } else {
+        // s - activate special
+        switch (key) {
+            case 's':
+            case 'S':
+                if (isHumanALive) {
+                    human->setMove(SPECIAL);
+                }
+                else {
+                    addMessage("human is not alive, you can't activate his power");
+                }
+                break;
+            default:
+                human->setMove(STAY);
+                break;
+        }
+    }
+}
+
 void World::setOrganismAt(Point p, Organism* o) {
     if (!p.isOutGrid(height,width)){
         organismsOnGrid[p.y][p.x] = o;
@@ -17,11 +74,11 @@ Organism* World::getOrganismAtPosition(Point p) const {
     return organismsOnGrid[p.y][p.x];
 }
 
-Point World::getRandomFreeNeighbor(Point p) {
+Point World::getRandomFreeNeighbor(Point p, int range) {
     vector<Point> potentialNeighbors;
-    for(int dy = -1; dy <= 1; dy++){
+    for(int dy = -range; dy <= range; dy++){
 
-        for(int dx = -1; dx <= 1; dx++){
+        for(int dx = -range; dx <= range; dx++){
             Point checkedPoint = {p.x + dx, p.y + dy};
 
             if(!(checkedPoint == p)
@@ -37,15 +94,13 @@ Point World::getRandomFreeNeighbor(Point p) {
     int index = rand() % potentialNeighbors.size();
     return potentialNeighbors[index];
 
-
-
 }
 
-Point World::getRandomNeighbor(Point p) {
+Point World::getRandomNeighbor(Point p, int range) {
     vector<Point> potentialNeighbors;
-    for(int dy = -1; dy <= 1; dy++){
+    for(int dy = -range; dy <= range; dy++){
 
-        for(int dx = -1; dx <= 1; dx++){
+        for(int dx = -range; dx <= range; dx++){
 
             Point checkedPoint = {p.x + dx, p.y + dy};
 
@@ -91,9 +146,11 @@ Point World::getRandomFreeCell()
 }
 
 void World::playGame() {
+
+    addHuman();
     while (isGameActive) {
         drawWorld();
-        getchar();
+        handleInput();
         makeTurn();
     if (turnNumber==10) {
         isGameActive = false;
@@ -237,8 +294,12 @@ void World::removeOrganism(Organism* organism) {
 
     // remove from grid
     Point pos = organism->getPosition();
+
+
     if (pos.x >= 0 && pos.x < width && pos.y >= 0 && pos.y < height) {
+        if (organismsOnGrid[pos.y][pos.x] == organism){ //to not delete attacker winner
         organismsOnGrid[pos.y][pos.x] = nullptr;
+        }
     }
 
     // remove from organism vector

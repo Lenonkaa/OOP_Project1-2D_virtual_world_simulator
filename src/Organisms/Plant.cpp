@@ -14,7 +14,6 @@ void Plant::action()
 
 void Plant::spread() {
 
-
     if((float)rand()/(float) RAND_MAX <= PROBABILITY_SPREADING) {
 
         string msg = "Plant (at " + to_string(getPosition().x) + "," + to_string(getPosition().y) + ") spreaded.";
@@ -42,6 +41,7 @@ Plant::Plant(World* world, Point position, int strength)
 }
 
 
-void Plant::collision() {
-    world->addMessage("plant collision");
+void Plant::collision(Organism* other) {
+    //just get eaten
+    return;
 }

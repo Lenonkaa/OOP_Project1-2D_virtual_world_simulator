@@ -21,3 +21,7 @@ void Organism::changePosition(Point newPos) {
 
     world->setOrganismAt(this->position, this);
 }
+
+void Organism::strengthBoost(int boost) {
+    this->strength += boost;
+}
