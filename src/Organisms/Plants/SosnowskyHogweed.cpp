@@ -21,11 +21,14 @@ void SosnowskyHogweed::spawnNew(Point pos) {
 
 
 bool SosnowskyHogweed::hasDeflectedAttack(Organism* attacker) {
-    if (!isThatCyberSheep(attacker)) {
+    if ((attacker->getType() == OrganismType::ANIMAL || attacker->getType() == OrganismType::HUMAN)
+        && !isThatCyberSheep(attacker)) {
+        world->addMessage( string(1, attacker->draw()) +" (" + to_string(getPosition().x) + "," + to_string(getPosition().y) + ") ate Sosnowsky's Hogweed and died");
         attacker->kill();
         return true;
     }
     else {
+
         return false;
     }
 
@@ -39,6 +42,7 @@ bool SosnowskyHogweed::isThatCyberSheep(Organism* attacker) {
 
 void SosnowskyHogweed::action() {
     spread();
+    killAnimalNeighbors();
 }
 
 void SosnowskyHogweed::killAnimalNeighbors() {
@@ -53,7 +57,8 @@ void SosnowskyHogweed::killAnimalNeighbors() {
 
             if (!(checkedPoint == position)
                 && !checkedPoint.isOutGrid(world->getHeight(), world->getWidth() )
-                && occupant->isAnimal()
+                && occupant != nullptr
+                && (occupant->getType() == OrganismType::ANIMAL || occupant->getType() == OrganismType::HUMAN)
                 && occupant->draw() != CYBER_SHEEP_SYMBOL) {
 
                     world->addMessage("Sosnowsky's hogweed kills " + string(1, occupant->draw()) + "!");

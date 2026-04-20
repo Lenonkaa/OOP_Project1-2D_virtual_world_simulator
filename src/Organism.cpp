@@ -25,3 +25,7 @@ void Organism::changePosition(Point newPos) {
 void Organism::strengthBoost(int boost) {
     this->strength += boost;
 }
+
+void Organism::kill() {
+    isAlive = false;
+}

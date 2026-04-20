@@ -14,9 +14,8 @@ public:
     virtual ~Plant() = default;
     Plant(World* world, Point position, int strength);
     virtual void spawnNew(Point pos) = 0;
+    OrganismType getType() const override { return OrganismType::PLANT; }
 
-
-    //organism type?
 protected:
     void spread();
 

@@ -4,7 +4,7 @@
 
 #include "Plant.h"
 #define PLANT_INITIATIVE 0
-#define PROBABILITY_SPREADING 0.8
+#define PROBABILITY_SPREADING 0.2
 
 void Plant::action()
 {
@@ -42,5 +42,9 @@ Plant::Plant(World* world, Point position, int strength)
 
 void Plant::collision(Organism* other) {
     //just get eaten
+
+    string msg = string(1, draw()) + " (" + to_string(getPosition().x) + "," + to_string(getPosition().y)
+                        + ") was eaten by" +string(1, other->draw());
+    world->addMessage(msg);
     return;
 }

@@ -10,24 +10,37 @@ int main() {
 
     srand(time(NULL));
 
-    World mojSwiat(10, 10);
+    bool playAgain=false;
+    do {
+        int w, h;
+        double fill;
 
-    Point pozycjaWilka = {5, 9};
-    Point pozycjaGrass = {5, 4};
+        cout << "========================================" << endl;
+        cout << "  2D WORLD SIMULATOR" << endl;
+        cout << "========================================" << endl;
+
+        cout << "Enter the world width: ";
+        cin >> w;
+        cout << "Enter the world height: ";
+        cin >> h;
+        cout << "Enter initial filling of the world (between 0.1 and 1.0)";
+        cin >> fill;
 
 
-    Wolf* staryWilk = new Wolf(&mojSwiat, pozycjaWilka);
+        if (w < 5) w = 5;
+        if (h < 5) h = 5;
+        if (fill <= 0.0) fill = 0.1;
+        if (fill > 1.0) fill = 1.0;
 
-    Grass* trawa = new Grass(&mojSwiat, pozycjaGrass);
+        World gameWorld(w, h);
 
-    Point pod = mojSwiat.getRandomFreeCell();
-    Sheep* owca = new Sheep(&mojSwiat, pod);
+        gameWorld.populateWorld(fill);
 
-    mojSwiat.addOrganism(staryWilk);
-    mojSwiat.addOrganism(trawa);
-    mojSwiat.addOrganism(owca);
+        gameWorld.playGame();
 
-    mojSwiat.playGame();
+        playAgain = gameWorld.getStartNewGame();
+    }
+    while (playAgain);
 
     return 0;
 }

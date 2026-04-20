@@ -23,8 +23,8 @@ void Sonchus::spawnNew(Point pos) {
 
 void Sonchus::action()
 {
-    string msg = "Sow thistle (at " + to_string(getPosition().x) + "," + to_string(getPosition().y) + ") tries " + to_string(N_SPREAD_TRIALS) + " times to spread";
-    world->addMessage(msg);
+    //string msg = "Sow thistle (at " + to_string(getPosition().x) + "," + to_string(getPosition().y) + ") tries " + to_string(N_SPREAD_TRIALS) + " times to spread";
+    //world->addMessage(msg);
     for (int i = 0; i < N_SPREAD_TRIALS; i++) {
 
         spread();

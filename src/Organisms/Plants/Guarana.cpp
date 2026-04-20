@@ -22,6 +22,8 @@ void Guarana::spawnNew(Point pos) {
 
 
 bool Guarana::hasDeflectedAttack(Organism* attacker) {
-    attacker->strengthBoost(GUARANA_BOOST);
+    if ((attacker->getType() == OrganismType::ANIMAL || attacker->getType() == OrganismType::HUMAN)) {
+        attacker->strengthBoost(GUARANA_BOOST);
+    }
     return false;
 }

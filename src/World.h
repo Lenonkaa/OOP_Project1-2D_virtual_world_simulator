@@ -22,6 +22,7 @@ private:
     int width, height;
     int turnNumber;
     bool isGameActive;
+    bool startNewGame;
     bool isHumanALive;
     vector<Organism*> organisms;
     Organism*** organismsOnGrid;
@@ -36,17 +37,20 @@ private:
 
 public:
 
+    void populateWorld(double fillPercentage);
     Point getRandomFreeCell();
     Point getRandomFreeNeighbor(Point p, int range = 1);
     Point getRandomNeighbor(Point p, int range = 1);
     int getWidth() const { return width; }
     int getHeight() const { return height; }
+    void setIfHumanAlive(bool state) { isHumanALive = state; }
 
     void addMessage(string msg) { turnMessages.push_back(msg); }
-
     void playGame();
 
+
     bool getIsGameActive(){return isGameActive;}
+    bool getStartNewGame(){return startNewGame;}
 
     enum MOVE {
         UP,

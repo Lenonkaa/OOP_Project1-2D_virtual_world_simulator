@@ -38,12 +38,15 @@ void Animal::collision(Organism* other) {
 
 void Animal::strongerWins(Organism* other) {
     if (this->getStrength() >= other->getStrength()) {
-        world->addMessage(string(1, this->draw()) + " kills " + string(1, other->draw()));
+        world->addMessage(string(1, this->draw()) +" (" + to_string(getPosition().x) + "," + to_string(getPosition().y)
+                + ") kills " + string(1, other->draw()) +" (" + to_string(other->getPosition().x) + "," + to_string(other->getPosition().y) + ")");
         other->kill();
         this->changePosition(other->getPosition());
     }
     else {
-        world->addMessage(string(1, other->draw()) + " defend itself and kills " + string(1, this->draw()));
+        world->addMessage(string(1, other->draw()) + " (" + to_string(other->getPosition().x) + "," + to_string(other->getPosition().y)
+            + ") defend itself and kills " + string(1, this->draw())
+            +" (" + to_string(getPosition().x) + "," + to_string(getPosition().y) + ")");
         this->kill();
     }
 }

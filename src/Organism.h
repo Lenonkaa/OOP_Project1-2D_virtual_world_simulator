@@ -10,6 +10,12 @@
 #define CYBER_SHEEP_SYMBOL 'C'
 #define HOGWEED_SYMBOL 'h'
 
+enum class OrganismType {
+    HUMAN,
+    ANIMAL,
+    PLANT
+};
+
 class World;
 
 class Organism {
@@ -48,7 +54,7 @@ public:
 
     virtual bool hasDeflectedAttack(Organism* attacker) { return false; } //domyslne nieodbijanie
     bool isSameSpecies(Organism* other) { return this->draw() == other->draw(); }
-    virtual bool isAnimal() { return false; }
-    void kill() { isAlive = false; }
+    virtual OrganismType getType() const = 0;
+    virtual void kill();
 };
 #endif //OOP1_ORGANISM_H

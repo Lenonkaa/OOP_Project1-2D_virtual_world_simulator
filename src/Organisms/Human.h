@@ -11,20 +11,30 @@ class Animal;
 class Human: public Animal {
 private:
     bool isAbilityActive;
+    bool wantsToActivateAbility;
+    int abilityDuration;
+    int abilityCooldown;
     World::MOVE currentMove;
 
     Animal* createChild(Point pos);
 
     void moveNotRandom();
+    void purify() const;
+
+    void activateAbility();
+
 public:
     Human(World* world, Point position);
     ~Human() override = default;
-
     void action() override;
     char draw() override;
-    void activateAbility();
-    World::MOVE getMove();
+
     void setMove(World::MOVE move);
+    bool hasDeflectedAttack(Organism* attacker);
+    void setWantsToActivateAbility(bool val) { wantsToActivateAbility = val; }
+    OrganismType getType() const override { return OrganismType::HUMAN; }
+    void kill() override;
+    string messageState() const;
 
 };
 
