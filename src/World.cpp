@@ -277,7 +277,7 @@ void World::drawWorld() const {
     cout << "Lena Idczak 208341" << endl;
     cout << "Turn number " << turnNumber << endl;
     cout << "========================================" << endl;
-    cout << "Move Human: Arrows | p/P Activate purifying | ENTER - next turn" << endl;
+    cout << "Move Human: Arrows | p/P Activate purifying | ENTER - next turn | n/N - new game | q/Q - quit" << endl;
     cout << human->messageState()<<endl;
     cout << "========================================" << endl;
 

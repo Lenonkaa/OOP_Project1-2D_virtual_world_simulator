@@ -131,10 +131,10 @@ string Human::messageState() const {
     if (this->getIsAlive()) {
         msg = "Human is at (" + to_string(this->getPosition().x) + "," + to_string(this->getPosition().y) + ")";
         if (isAbilityActive) {
-            msg += "    Purification is active for" + to_string(abilityDuration) + " turns";
+            msg += "    Purification is active for " + to_string(abilityDuration) + " turns";
         }
         else {
-            msg+= "     Wait "+ to_string(abilityCooldown) + " turns to activate Purification";
+            msg+= "     Wait "+ to_string(abilityCooldown) + " turns to activate purification";
         }
     }
     else {

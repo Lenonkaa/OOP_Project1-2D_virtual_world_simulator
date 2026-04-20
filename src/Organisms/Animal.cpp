@@ -24,7 +24,7 @@ void Animal::action() {
 
 void Animal::collision(Organism* other) {
     if (this->isSameSpecies(other)) {
-        world->addMessage("Breading " + string(1, this->draw()) +" specie");
+        world->addMessage("Breading " + string(1, this->draw()) +" species");
         bread(other);
         return;
     }

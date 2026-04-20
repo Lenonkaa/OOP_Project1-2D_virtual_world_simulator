@@ -27,6 +27,10 @@ Animal* Turtle::createChild(Point pos) {
 bool Turtle::hasDeflectedAttack(Organism* attacker) {
     bool isReflecting = (attacker->getStrength() < TURTLE_DEFLECTION);
 
+    if (isReflecting) {
+        world->addMessage("Turtle deflects attack of " + string(1, attacker->draw()));
+    }
+
    return isReflecting;
 }
 

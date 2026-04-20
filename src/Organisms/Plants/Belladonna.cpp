@@ -21,6 +21,8 @@ void Belladonna::spawnNew(Point pos) {
 
 
 bool Belladonna::hasDeflectedAttack(Organism* attacker) {
+    world->addMessage(string(1, attacker->draw()) + " (" + to_string(attacker->getPosition().x) + "," + to_string(attacker->getPosition().y)
+        + ") ate Belladonna and died!");
     attacker->kill();
     return true;
 }
