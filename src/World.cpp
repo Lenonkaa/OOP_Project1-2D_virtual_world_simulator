@@ -79,6 +79,7 @@ void World::handleInput(){
         else if (key == 'q' || key == 'Q') {
             isGameActive = false;
             turnConfirmed = true;
+            startNewGame = false;
         }
         else if (key == NEXT_TURN) {
             turnConfirmed = true;

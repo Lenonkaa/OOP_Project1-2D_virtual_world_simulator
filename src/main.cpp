@@ -37,8 +37,9 @@ int main() {
         gameWorld.populateWorld(fill);
 
         gameWorld.playGame();
+        playAgain=false;
+        playAgain=gameWorld.getStartNewGame();
 
-        playAgain = gameWorld.getStartNewGame();
     }
     while (playAgain);
 
