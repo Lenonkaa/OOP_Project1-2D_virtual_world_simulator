@@ -4,6 +4,7 @@
 
 #include "Organism.h"
 
+
 Organism::Organism(World* world, Point position, int strength, int initiative):
     position(position),
     strength(strength),
@@ -15,12 +16,21 @@ Organism::Organism(World* world, Point position, int strength, int initiative):
 }
 
 void Organism::changePosition(Point newPos) {
-    world->setOrganismAt(this->position, nullptr);
+    getWorld()->setOrganismAt(this->position, nullptr);
 
     this->position = newPos;
 
-    world->setOrganismAt(this->position, this);
+    getWorld()->setOrganismAt(this->position, this);
 }
+
+
+//====================== used by others ==============
+
+bool Organism::isSameSpecies(Organism* other) {
+    return typeid(*this) == typeid(*other);
+}
+
+
 
 void Organism::strengthBoost(int boost) {
     this->strength += boost;

@@ -18,9 +18,11 @@ char Fox::draw() {
 }
 
 Animal* Fox::createChild(Point pos) {
-    return new Fox(this->world, pos);
+    return new Fox(this->getWorld(), pos);
 }
 
+
+// ================ FOX SPECIAL ==============================================
 
 void Fox::action() {
     Point currentPos = getPosition();
@@ -33,31 +35,6 @@ void Fox::action() {
 }
 
 
-vector<Point> Fox::getAllSafeNeighbors(Point p, int range) {
-    vector<Point> safeNeighbors;
-
-    for (int dy = -range; dy <= range; dy++) {
-        for (int dx = -range; dx <= range; dx++) {
-            Point checkedPoint = {p.x + dx, p.y + dy};
-
-            if (!(checkedPoint == p)
-            && !checkedPoint.isOutGrid(world->getHeight(), world->getWidth() )
-            && isThereSafe(world->getOrganismAtPosition(checkedPoint))) {
-                safeNeighbors.push_back(checkedPoint);
-            }
-        }
-    }
-
-    return safeNeighbors;
-}
-
-bool Fox::isThereSafe( Organism* occupant) {
-    if (occupant == nullptr || occupant->getStrength() <= this->getStrength()) {
-        return true;
-    }
-    return false;
-}
-
 Point Fox::getRandomSafeNeighbor() {
 
     Point currentPos = getPosition();
@@ -68,5 +45,41 @@ Point Fox::getRandomSafeNeighbor() {
     }
 
     int index = rand() % safeNeighbors.size();
+
     return safeNeighbors[index];
+}
+
+
+vector<Point> Fox::getAllSafeNeighbors(Point p, int range) {
+    vector<Point> safeNeighbors;
+
+    for (int dy = -range; dy <= range; dy++) {
+        for (int dx = -range; dx <= range; dx++) {
+
+            Point checkedPoint = {p.x + dx, p.y + dy};
+
+            if (ifSafeAndCanMoveThere(checkedPoint)) {
+
+                safeNeighbors.push_back(checkedPoint);
+            }
+        }
+    }
+
+    return safeNeighbors;
+}
+
+bool Fox::ifSafeAndCanMoveThere(Point checkedPoint){
+    Point myPosition = getPosition();
+    bool test = ( !(checkedPoint == myPosition)
+            && getWorld()->isValidPosition(checkedPoint)
+            && isThereSafe( getWorld()->getOrganismAtPosition(checkedPoint) ) );
+
+    return test;
+
+}
+bool Fox::isThereSafe( Organism* occupant) {
+    if (occupant == nullptr || occupant->getStrength() <= this->getStrength()) {
+        return true;
+    }
+    return false;
 }

@@ -5,14 +5,16 @@
 #ifndef OOP1_WORLD_H
 #define OOP1_WORLD_H
 #include <vector>
-#include <algorithm>
-#include <iostream>
-#include <ostream>
-#include <conio.h>
+#include <string>
+#include <typeinfo>
+
 using namespace std;
 
 #include "Organism.h"
 #include "Point.h"
+
+
+#define FILE_SAVE_NAME "stateSave.txt"
 
 class Human;
 class Organism;
@@ -30,28 +32,21 @@ private:
 
     vector<string> turnMessages;
 
-    //void organismsTurn;
 
     void sortOrganisms();
     void handleInput();
+    void makeTurn();
+    void drawWorld() const;
+
+
+    void addHuman();
+    Point getRandomFreeCell();
+
+
+    void saveWorld(const string& filename);
+    void clearWorld();
 
 public:
-
-    void populateWorld(double fillPercentage);
-    Point getRandomFreeCell();
-    Point getRandomFreeNeighbor(Point p, int range = 1);
-    Point getRandomNeighbor(Point p, int range = 1);
-    int getWidth() const { return width; }
-    int getHeight() const { return height; }
-    void setIfHumanAlive(bool state) { isHumanALive = state; }
-
-    void addMessage(string msg) { turnMessages.push_back(msg); }
-    void playGame();
-
-
-    bool getIsGameActive(){return isGameActive;}
-    bool getStartNewGame(){return startNewGame;}
-
     enum MOVE {
         UP,
         DOWN,
@@ -65,16 +60,39 @@ public:
 
     ~World();
 
-    void makeTurn();
 
-    void addHuman();
+    void playGame();
+    void populateWorld(double fillPercentage);
+
+    void addMessage(string msg) { turnMessages.push_back(msg);}
+
+    //getters setters
+
+    int getWidth() const { return width; }
+    int getHeight() const { return height; }
+    bool getIsGameActive(){return isGameActive;}
+    bool getStartNewGame(){return startNewGame;}
+
+    void setIfHumanAlive(bool state) { isHumanALive = state; }
+
+    //managing organisms and positions
+
+
     void addOrganism(Organism* organism);
     void removeOrganism(Organism* organism);
-    void drawWorld() const;
 
 
+    bool isValidPosition(Point p) const;
     Organism* getOrganismAtPosition(Point p) const;
     void setOrganismAt(Point p, Organism* o);
+
+    Point getRandomFreeNeighbor(Point p, int range = 1);
+    Point getRandomNeighbor(Point p, int range = 1);
+
+    //state to/from files
+
+    static World* loadWorld(const string& filename);
+    void setTurnNumber(int n) { turnNumber = n; }
 
 
 };

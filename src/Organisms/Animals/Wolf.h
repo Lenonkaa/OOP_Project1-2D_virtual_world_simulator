@@ -16,7 +16,7 @@ public:
     ~Wolf() override = default;
 
     char draw() override;
-
+protected:
     Animal* createChild(Point pos) override;
 };
 

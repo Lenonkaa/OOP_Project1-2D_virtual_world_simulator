@@ -9,18 +9,18 @@
 
 class Plant: public Organism {
 public:
-    virtual void action() override;
-    virtual void collision(Organism* other) override;
+
     virtual ~Plant() = default;
     Plant(World* world, Point position, int strength);
-    virtual void spawnNew(Point pos) = 0;
+
+
     OrganismType getType() const override { return OrganismType::PLANT; }
 
 protected:
-    void spread();
-
-
-
+    void spread(); //sonchus uzywa
+    virtual void action() override;
+    virtual void collision(Organism* other) override;
+    virtual void spawnNew(Point pos) = 0;
 
 
 };

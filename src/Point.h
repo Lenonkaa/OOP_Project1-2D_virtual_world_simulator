@@ -15,10 +15,6 @@ struct Point
     int y;
 
 
-
-    bool isOutGrid(int height, int width) const {
-        return y < 0 || x < 0 || y >= height || x >= width;
-    }
 };
 
 

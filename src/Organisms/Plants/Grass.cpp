@@ -17,5 +17,5 @@ char Grass::draw() {
 
 
 void Grass::spawnNew(Point pos) {
-        world->addOrganism(new Grass(world, pos));
-    }
+        getWorld()->addOrganism(new Grass(getWorld(), pos));
+}

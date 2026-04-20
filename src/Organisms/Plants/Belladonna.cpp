@@ -16,13 +16,16 @@ char Belladonna::draw() {
 
 
 void Belladonna::spawnNew(Point pos) {
-    world->addOrganism(new Belladonna(world, pos));
+    getWorld()->addOrganism(new Belladonna(getWorld(), pos));
 }
 
 
 bool Belladonna::hasDeflectedAttack(Organism* attacker) {
-    world->addMessage(string(1, attacker->draw()) + " (" + to_string(attacker->getPosition().x) + "," + to_string(attacker->getPosition().y)
+
+    getWorld()->addMessage(string(1, attacker->draw())
+        + " (" + to_string(attacker->getPosition().x) + "," + to_string(attacker->getPosition().y)
         + ") ate Belladonna and died!");
+
     attacker->kill();
     return true;
 }

@@ -25,20 +25,27 @@ private:
     Point position;
     int age;
     bool isAlive;
+    World* world;
+
 
 protected:
-    World* world;
+
+    World* getWorld() const { return world; }
+
+    virtual void collision(Organism* other) = 0;
+
+    void changePosition(Point newPos);
+    bool isSameSpecies(Organism* other);
+
 
 
 public:
 
     Organism(World* world, Point position, int strength, int initiative);
-
     virtual ~Organism() = default;
 
 
     virtual void action() = 0;
-    virtual void collision(Organism* other) = 0;
     virtual char draw() = 0;
 
     //getters and setters
@@ -48,13 +55,19 @@ public:
     bool getIsAlive() const { return isAlive; }
     int getStrength() const { return strength; }
 
-    void changePosition(Point newPos);
     void incrementAge() { age++; }
+
+    //for loading
+    void setStrength(int newStrength) { strength = newStrength; }
+    void setAge(int newAge) { age = newAge; }
+
+    //used on other organisms
+    virtual bool hasDeflectedAttack(Organism* attacker) { return false; } //domyslne nieodbijanie
+    virtual OrganismType getType() const = 0;
+
+    virtual void kill();
     void strengthBoost(int boost);
 
-    virtual bool hasDeflectedAttack(Organism* attacker) { return false; } //domyslne nieodbijanie
-    bool isSameSpecies(Organism* other) { return this->draw() == other->draw(); }
-    virtual OrganismType getType() const = 0;
-    virtual void kill();
+
 };
 #endif //OOP1_ORGANISM_H

@@ -20,27 +20,30 @@ char Antelope::draw() {
 }
 
 Animal* Antelope::createChild(Point pos) {
-    return new Antelope(this->world, pos);
+    return new Antelope(this->getWorld(), pos);
 }
 
-bool Antelope::hasDeflectedAttack(Organism* attacker) {
-    bool canEscape = (rand() % 2 == 0);
-    if (canEscape) {
-        Point currentPos = getPosition();
-        Point newPos = world->getRandomFreeNeighbor(currentPos);
-        this->moveYourself(currentPos,newPos);
-        return true;
-    }
-    else {
-        return false;
-    }
-}
+// =================== ANTELOPE SPECIAL ================
+
 
 void Antelope::action() {
     Point currentPos = getPosition();
 
-    Point nextPos = world->getRandomNeighbor(currentPos, ANTELOPE_RANGE);
+    Point nextPos = getWorld()->getRandomNeighbor(currentPos, ANTELOPE_RANGE);
 
     moveYourself(currentPos, nextPos);
 }
 
+
+bool Antelope::hasDeflectedAttack(Organism* attacker) {
+
+    bool canEscape = (rand() % 2 == 0);
+
+    if (canEscape) {
+        Point currentPos = getPosition();
+        Point newPos = getWorld()->getRandomFreeNeighbor(currentPos);
+        this->moveYourself(currentPos,newPos);
+        return true;
+    }
+    return false;
+}

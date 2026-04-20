@@ -17,6 +17,7 @@ public:
 
     char draw() override;
 
+protected:
     Animal* createChild(Point pos) override;
 };
 

@@ -18,5 +18,5 @@ char Sheep::draw() {
 }
 
 Animal* Sheep::createChild(Point pos) {
-    return new Sheep(this->world, pos);
+    return new Sheep(this->getWorld(), pos);
 }

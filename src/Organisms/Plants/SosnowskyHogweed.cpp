@@ -3,6 +3,7 @@
 //
 
 #include "SosnowskyHogweed.h"
+#include "../Animals/CyberSheep.h"
 
 
 #define SOSNOWSKY_STRENGTH 10
@@ -10,20 +11,32 @@
 SosnowskyHogweed::SosnowskyHogweed(World* world, Point position)
     : Plant(world, position, SOSNOWSKY_STRENGTH) {}
 
+
+
 char SosnowskyHogweed::draw() {
     return HOGWEED_SYMBOL;
 }
 
 
+void SosnowskyHogweed::action() {
+    spread();
+    killAnimalNeighbors();
+}
+
+
 void SosnowskyHogweed::spawnNew(Point pos) {
-    world->addOrganism(new SosnowskyHogweed(world, pos));
+    getWorld()->addOrganism(new SosnowskyHogweed(getWorld(), pos));
 }
 
 
 bool SosnowskyHogweed::hasDeflectedAttack(Organism* attacker) {
+
     if ((attacker->getType() == OrganismType::ANIMAL || attacker->getType() == OrganismType::HUMAN)
         && !isThatCyberSheep(attacker)) {
-        world->addMessage( string(1, attacker->draw()) +" (" + to_string(getPosition().x) + "," + to_string(getPosition().y) + ") ate Sosnowsky's Hogweed and died");
+        getWorld()->addMessage( string(1, attacker->draw())
+            +" (" + to_string(getPosition().x) + "," + to_string(getPosition().y)
+            + ") ate Sosnowsky's Hogweed and died");
+
         attacker->kill();
         return true;
     }
@@ -35,17 +48,21 @@ bool SosnowskyHogweed::hasDeflectedAttack(Organism* attacker) {
 }
 
 
+
+
+// ================= PRIVATE ==============
+
+
 bool SosnowskyHogweed::isThatCyberSheep(Organism* attacker) {
-    char type = attacker->draw();
-    return type == CYBER_SHEEP_SYMBOL;
+
+    if (attacker == nullptr) return false;
+
+    return typeid(*attacker) == typeid(CyberSheep);
 }
 
-void SosnowskyHogweed::action() {
-    spread();
-    killAnimalNeighbors();
-}
 
 void SosnowskyHogweed::killAnimalNeighbors() {
+
     int range=1;
     Point position = getPosition();
 
@@ -53,19 +70,28 @@ void SosnowskyHogweed::killAnimalNeighbors() {
         for (int dx = -range; dx <= range; dx++) {
 
             Point checkedPoint = {position.x + dx, position.y + dy};
-            Organism* occupant = world->getOrganismAtPosition(checkedPoint);
+            Organism* occupant = getWorld()->getOrganismAtPosition(checkedPoint);
 
-            if (!(checkedPoint == position)
-                && !checkedPoint.isOutGrid(world->getHeight(), world->getWidth() )
-                && occupant != nullptr
-                && (occupant->getType() == OrganismType::ANIMAL || occupant->getType() == OrganismType::HUMAN)
-                && occupant->draw() != CYBER_SHEEP_SYMBOL) {
+            if (ifKillAtThisCell(checkedPoint, occupant)) {
 
-                    world->addMessage("Sosnowsky's hogweed kills " + string(1, occupant->draw()) + "!");
+                    getWorld()->addMessage("Sosnowsky's hogweed kills "
+                        + string(1, occupant->draw()) + "!");
                     occupant->kill();
                 }
 
             }
         }
 
+}
+
+bool SosnowskyHogweed::ifKillAtThisCell(Point checkedPoint, Organism* occupant) const {
+    Point position = getPosition();
+
+
+    bool test =(!(checkedPoint == position)
+                && getWorld()->isValidPosition(checkedPoint)
+                && occupant != nullptr
+                && (occupant->getType() == OrganismType::ANIMAL || occupant->getType() == OrganismType::HUMAN)
+                && typeid(*occupant) != typeid(CyberSheep));
+    return test;
 }

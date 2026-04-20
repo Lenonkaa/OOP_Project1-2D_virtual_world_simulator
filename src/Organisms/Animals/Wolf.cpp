@@ -17,5 +17,5 @@ char Wolf::draw() {
 }
 
 Animal* Wolf::createChild(Point pos) {
-    return new Wolf(this->world, pos);
+    return new Wolf(this->getWorld(), pos);
 }

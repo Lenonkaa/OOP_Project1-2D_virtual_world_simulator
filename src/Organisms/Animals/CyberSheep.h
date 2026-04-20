@@ -17,11 +17,16 @@ public:
 
     char draw() override;
 
-    Animal* createChild(Point pos) override;
     void action() override;
+
+protected:
+    Animal* createChild(Point pos) override;
+
 private:
+    bool isHogweedOnGrid;
     Point findClosestHogweed();
-    bool isHogweed;
+    void goTowardsHogweed(Point closestHogweedPos);
+
 };
 
 

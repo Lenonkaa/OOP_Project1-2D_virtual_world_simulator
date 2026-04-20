@@ -15,21 +15,24 @@ private:
     void bread(Organism* other);
     void strongerWins(Organism* other);
 
+
 public:
 
     Animal(World* world, Point position, int strength, int initiative);
 
     virtual ~Animal() = default;
 
-    // Wspólne zachowania dla wszystkich zwierząt
-    virtual void action() override;    // Ruch na sąsiednie pole
-    virtual void collision(Organism* other) override; // Walka lub rozmnażanie
+
+    virtual void action() override;
+    virtual void collision(Organism* other) override;
+
     OrganismType getType() const override { return OrganismType::ANIMAL; }
 
 protected:
     void moveYourself(Point currentPos, Point nextPos);
-    void moveRandom();
     virtual Animal* createChild(Point pos) = 0;
+
+    void moveRandom();
 
 };
 

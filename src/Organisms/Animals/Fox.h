@@ -16,13 +16,16 @@ public:
     ~Fox() override = default;
 
     char draw() override;
-
-    Animal* createChild(Point pos) override;
     void action() override;
+
+protected:
+    Animal* createChild(Point pos) override;
+
 private:
     vector<Point> getAllSafeNeighbors(Point p, int range=1);
     Point getRandomSafeNeighbor();
     bool isThereSafe( Organism* occupant);
+    bool ifSafeAndCanMoveThere(Point checkedPoint);
 };
 
 

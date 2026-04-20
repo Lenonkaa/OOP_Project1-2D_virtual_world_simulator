@@ -16,10 +16,12 @@ public:
     ~Antelope() override = default;
 
     char draw() override;
-
-    Animal* createChild(Point pos) override;
-    bool hasDeflectedAttack(Organism* attacker) override;
     void action() override;
+    bool hasDeflectedAttack(Organism* attacker) override;
+
+protected:
+    Animal* createChild(Point pos) override;
+
 };
 
 

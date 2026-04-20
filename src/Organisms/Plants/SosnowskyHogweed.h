@@ -11,13 +11,16 @@ class SosnowskyHogweed: public Plant {
 public:
     SosnowskyHogweed(World* world, Point position);
     char draw() override;
-    bool hasDeflectedAttack(Organism* attacker) override;
     void action() override;
+    bool hasDeflectedAttack(Organism* attacker) override;
+
 protected:
     void spawnNew(Point pos) override;
+
 private:
     bool isThatCyberSheep(Organism* attacker);
     void killAnimalNeighbors();
+    bool ifKillAtThisCell(Point checkedPoint, Organism* occupant) const;
 };
 
 

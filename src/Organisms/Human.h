@@ -19,22 +19,35 @@ private:
     Animal* createChild(Point pos);
 
     void moveNotRandom();
-    void purify() const;
 
+    void updateAbility();
     void activateAbility();
+    void purify() const;
 
 public:
     Human(World* world, Point position);
     ~Human() override = default;
     void action() override;
     char draw() override;
+    string messageState() const;
+
 
     void setMove(World::MOVE move);
-    bool hasDeflectedAttack(Organism* attacker);
     void setWantsToActivateAbility(bool val) { wantsToActivateAbility = val; }
     OrganismType getType() const override { return OrganismType::HUMAN; }
+
+    //used by others
     void kill() override;
-    string messageState() const;
+    bool hasDeflectedAttack(Organism* attacker);
+
+
+    //for saving
+    bool getIsAbilityActive() const { return isAbilityActive; }
+    int getAbilityDuration() const { return abilityDuration; }
+    int getAbilityCooldown() const { return abilityCooldown; }
+
+    //for loading
+    void setAbilityState(bool active, int duration, int cooldown);
 
 };
 

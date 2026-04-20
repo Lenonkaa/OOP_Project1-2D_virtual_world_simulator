@@ -11,7 +11,7 @@ class Sonchus: public Plant {
 public:
     Sonchus(World* world, Point position);
     char draw() override;
-    virtual void action() override;
+    void action() override;
 protected:
     void spawnNew(Point pos) override;
 };

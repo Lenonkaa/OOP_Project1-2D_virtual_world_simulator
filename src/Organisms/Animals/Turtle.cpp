@@ -9,7 +9,7 @@
 #define TURTLE_STRENGTH 2
 #define TURTLE_INITIATIVE 1
 #define PROBABILITY_MOVE 0.25
-#define TURTLE_DEFLECTION 5
+#define TURTLE_STRENTH_DEFLECTION_LIMIT 5
 
 
 
@@ -21,26 +21,33 @@ char Turtle::draw() {
 }
 
 Animal* Turtle::createChild(Point pos) {
-    return new Turtle(this->world, pos);
+    return new Turtle(this->getWorld(), pos);
 }
 
-bool Turtle::hasDeflectedAttack(Organism* attacker) {
-    bool isReflecting = (attacker->getStrength() < TURTLE_DEFLECTION);
 
-    if (isReflecting) {
-        world->addMessage("Turtle deflects attack of " + string(1, attacker->draw()));
-    }
-
-   return isReflecting;
-}
+// ====================== TURTLE SPECIAL =========================
 
 void Turtle::action() {
 
-    if ((float)rand()/(float) RAND_MAX <= PROBABILITY_MOVE) {
+    if ( (float)rand()/(float) RAND_MAX <= PROBABILITY_MOVE ) {
+
         Point currentPos = getPosition();
-        Point nextPos = world->getRandomNeighbor(currentPos);
+        Point nextPos = getWorld()->getRandomNeighbor(currentPos);
 
         moveYourself(currentPos, nextPos);
     }
 }
+
+
+bool Turtle::hasDeflectedAttack(Organism* attacker) {
+
+    bool isDeflecting = (attacker->getStrength() < TURTLE_STRENTH_DEFLECTION_LIMIT);
+
+    if (isDeflecting) {
+        getWorld()->addMessage("Turtle deflects attack of " + string(1, attacker->draw()));
+    }
+
+   return isDeflecting;
+}
+
 

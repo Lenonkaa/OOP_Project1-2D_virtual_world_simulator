@@ -17,13 +17,15 @@ char Guarana::draw() {
 
 
 void Guarana::spawnNew(Point pos) {
-    world->addOrganism(new Guarana(world, pos));
+    getWorld()->addOrganism(new Guarana(getWorld(), pos));
 }
 
 
 bool Guarana::hasDeflectedAttack(Organism* attacker) {
+
     if ((attacker->getType() == OrganismType::ANIMAL || attacker->getType() == OrganismType::HUMAN)) {
         attacker->strengthBoost(GUARANA_BOOST);
     }
+
     return false;
 }
